@@ -76,11 +76,10 @@ export default {
     },
     computed: {
         ...mapState(["userInfo"]),
-        
     },
     created() {},
     components: {
-        // HelloWorld,
+        
     },
 };
 </script>

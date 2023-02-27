@@ -43,7 +43,7 @@ export function validateMobile(str) {
     return reg.test(str)
   }
   
-  // 只允许输入中文
+  // 校验是否中文
   export function validZhcn(str) {
     return /[\u4e00-\u9fa5]/g.test(str)
   }

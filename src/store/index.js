@@ -14,8 +14,8 @@ const store = new Vuex.Store({
         projectURL: "http://223.75.204.112:808/resources/"
     },
     mutations: {
-        addProjectInfo() {
-            state.projectInfo = {}
+        addProjectInfo(state, info) {
+            state.projectInfo.push(info)
         }
     },
 })

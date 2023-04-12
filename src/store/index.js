@@ -15,7 +15,7 @@ const store = new Vuex.Store({
     },
     mutations: {
         addProjectInfo() {
-            state.projectInfo.set
+            state.projectInfo = {}
         }
     },
 })

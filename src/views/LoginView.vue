@@ -101,24 +101,13 @@ export default {
                 }
             });
         },
-        // checkInfo() {
-        //     // console.log(this.$store.state.userInfo);
-        //     // console.log(this.userInfo);
-        //     this.userInfo.some((item) => {
-        //         if (
-        //             this.username === item.name &&
-        //             this.password === item.password
-        //         ) {
-        //             this.$router.push("home");
-        //             // console.log("ok");
-        //         }
-        //     });
-        // },
     },
     computed: {
         ...mapState(["userInfo"]),
     },
-    created() {},
+    created() {
+        console.log(this.userInfo);
+    },
     components: {},
 };
 </script>

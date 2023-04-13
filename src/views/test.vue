@@ -1,113 +1,72 @@
 <template>
-    <el-form
-        :model="ruleForm"
-        status-icon
-        :rules="rules"
-        ref="ruleForm"
-        label-width="100px"
-        class="demo-ruleForm"
-    >
-        <el-form-item label="密码" prop="pass">
-            <el-input
-                type="password"
-                v-model="ruleForm.pass"
-                autocomplete="off"
-            ></el-input>
-        </el-form-item>
-        <el-form-item label="确认密码" prop="checkPass">
-            <el-input
-                type="password"
-                v-model="ruleForm.checkPass"
-                autocomplete="off"
-            ></el-input>
-        </el-form-item>
-        <el-form-item label="年龄" prop="age">
-            <el-input v-model.number="ruleForm.age"></el-input>
-        </el-form-item>
-        <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')"
-                >提交</el-button
-            >
-            <el-button @click="resetForm('ruleForm')">重置</el-button>
-        </el-form-item>
-        {{ testRefs }}
-    </el-form>
+    <el-container class="card">
+        <el-form ref="form" :model="form" :rules="rules" :label-position="labelPosition" size="small">
+            <label>Username</label>
+            <el-form-item size="small" prop="name">
+                <el-input class="form-input" v-model="form.name"></el-input>
+            </el-form-item>
+            <label>Password</label>
+            <el-form-item prop="password" size="small">
+                <el-input class="form-input" v-model="form.password" type="password"  autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button class="form-button" type="primary" size="small" @click="submitForm('form')">Submit</el-button>
+            </el-form-item>
+        </el-form>
+    </el-container>
 </template>
+
 <script>
-export default {
-    name: "test",
-    data() {
-        var checkAge = (rule, value, callback) => {
-            if (!value) {
-                return callback(new Error("年龄不能为空"));
-            }
-            setTimeout(() => {
-                if (!Number.isInteger(value)) {
-                    callback(new Error("请输入数字值"));
+    export default {
+        name: "LoginPage",
+        data () {
+            let validateName = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('Please input valid username'));
                 } else {
-                    if (value < 18) {
-                        callback(new Error("必须年满18岁"));
-                    } else {
-                        callback();
+                    if (this.form.name !== '') {
+                        this.$refs.form.validateField('name');
                     }
+                    callback();
                 }
-            }, 1000);
-        };
-        var validatePass = (rule, value, callback) => {
-            if (value === "") {
-                callback(new Error("请输入密码"));
-            } else {
-                if (this.ruleForm.checkPass !== "") {
-                    this.$refs.ruleForm.validateField("checkPass");
-                }
-                callback();
-            }
-        };
-        var validatePass2 = (rule, value, callback) => {
-            if (value === "") {
-                callback(new Error("请再次输入密码"));
-            } else if (value !== this.ruleForm.pass) {
-                callback(new Error("两次输入密码不一致!"));
-            } else {
-                callback();
-            }
-        };
-        return {
-            ruleForm: {
-                pass: "",
-                checkPass: "",
-                age: "",
-            },
-            rules: {
-                pass: [{ validator: validatePass, trigger: "blur" }],
-                checkPass: [{ validator: validatePass2, trigger: "blur" }],
-                age: [{ validator: checkAge, trigger: "blur" }],
-            },
-        };
-    },
-    methods: {
-        submitForm(formName) {
-            // console.log(this.$refs);
-            console.log(this.$refs[formName]);
-            this.$refs[formName].validate((valid) => {
-                if (valid) {
-                    alert("submit!");
+            };
+            let validatePassword = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('Please input valid password'));
                 } else {
-                    console.log("error submit!!");
-                    return false;
+                    if (this.form.password !== '') {
+                        this.$refs.form.validateField('password');
+                    }
+                    callback();
                 }
-            });
+            };
+            return {
+                labelPosition: 'top',
+                form: {
+                    name: '',
+                    password: '',
+                },
+                rules: {
+                    name: [
+                        { validator: validateName, trigger: 'blur' },
+                        { min: 2, max: 15, message: 'Length should be between 2 to 15', trigger: 'blur' }
+                    ],
+                    password: [
+                        { validator: validatePassword, trigger: 'blur' }
+                    ]
+                }
+            }
         },
-        resetForm(formName) {
-            this.$refs[formName].resetFields();
-        },
-    },
-    computed: {
-        testRefs() {
+        methods: {
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        alert('yes');
+                    } else {
+                        return false;
+                    }
+                });
+            }
         }
     }
-};
 </script>
-
-<style>
-</style>

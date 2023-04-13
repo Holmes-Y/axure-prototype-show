@@ -1,7 +1,31 @@
 <template>
     <div class="login">
         <div class="wrap">
-            <div>
+            <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+                <el-form-item label="用户名" prop="userName">
+                    <el-input
+                        v-model="form.userName"
+                        maxlength="4"
+                        minlength="1"
+                        placeholder="请输入"
+                    ></el-input>
+                </el-form-item>
+                <el-form-item label="密码" prop="pass">
+                    <el-input
+                        type="password"
+                        v-model="form.password"
+                        autocomplete="off"
+                        placeholder="请输入"
+                        show-password
+                    ></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="onSubmit()"
+                        >立即登录</el-button
+                    >
+                </el-form-item>
+            </el-form>
+            <!-- <div>
                 用户名：
                 <el-input
                     placeholder="请输入您的姓名"
@@ -22,14 +46,10 @@
                     show-password
                 >
                 </el-input>
-            </div>
-            <el-button
-                class="btn-login"
-                type="primary"
-                @click="checkInfo"
+            </div> -->
+            <!-- <el-button class="btn-login" type="primary" @click="checkInfo"
                 >确定
-            </el-button>
-            {{ userInfo }}
+            </el-button> -->
         </div>
     </div>
 </template>
@@ -43,44 +63,63 @@ import { validZhcn } from "../tool/util";
 export default {
     name: "LoginView",
     data() {
+        let validatePass = (rule, value, callback) => {
+            if (value === "") {
+                callback(new Error("请输入密码"));
+            } else {
+                callback();
+            }
+        };
+        let validateName = (rule, value, callback) => {
+            if (value === "") {
+                callback(new Error("请输入中文姓名"));
+            } else {
+                if (!validZhcn(this.form.userName)) {
+                    callback(new Error("必须为真实中文姓名"));
+                }
+            }
+        };
         return {
-            username: "",
-            password: "",
-            
+            form: {
+                userName: "",
+                password: "",
+            },
+            rules: {
+                userName: [{ validator: validateName, trigger: "blur" }],
+                pass: [{ validator: validatePass, trigger: "blur" }],
+            },
         };
     },
     methods: {
-        checkInfo() {
-            // console.log(this.$store.state.userInfo);
-            // console.log(this.userInfo);
+        onSubmit() {
             this.userInfo.some((item) => {
                 if (
-                    this.username === item.name &&
-                    this.password === item.password
+                    this.form.userName === item.name &&
+                    this.form.password === item.password
                 ) {
                     this.$router.push("home");
-                    console.log("ok");
                 }
             });
         },
-        checkInput() {
-            console.log('res', validZhcn(this.username));
-            if(validZhcn(this.username)) {
-                console.log('keyong');
-                return '可用'
-            }else{
-                console.log('bukeyong');
-                return '不可用'
-            }
-        },
+        // checkInfo() {
+        //     // console.log(this.$store.state.userInfo);
+        //     // console.log(this.userInfo);
+        //     this.userInfo.some((item) => {
+        //         if (
+        //             this.username === item.name &&
+        //             this.password === item.password
+        //         ) {
+        //             this.$router.push("home");
+        //             // console.log("ok");
+        //         }
+        //     });
+        // },
     },
     computed: {
         ...mapState(["userInfo"]),
     },
     created() {},
-    components: {
-        
-    },
+    components: {},
 };
 </script>
 
@@ -105,9 +144,6 @@ export default {
         span {
             display: inline-block;
             width: 72px;
-        }
-        div {
-            margin-bottom: 8px;
         }
         .btn-login {
             margin-top: 40px;

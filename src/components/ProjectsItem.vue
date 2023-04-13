@@ -2,8 +2,7 @@
     <el-row :gutter="20">
         <el-col :span="6" v-for="(item, index,) in projects" :key="index">
             <div class="grid-content bg-purple">
-                <div class="wrap" @click="goUrl(item, index)">
-                    <p>index{{ item.index }}</p>
+                <div class="wrap" @click="goUrl(item)">
                     <h4>{{ item.projectName }}</h4>
                     <p>{{ item.appType }}</p>
                     <p>{{ item.discription }}</p>
@@ -29,10 +28,11 @@ export default {
         ...mapState(["projectInfo"]),
     },
     methods: {
-        goUrl(item, index) {
+        goUrl(item) {
+            const params = new Date().getTime().toString().slice(9, 12)
             // console.log(this.$store.state.projectURL);
             // console.log(item.projectName);
-            const itemURL = this.$store.state.projectURL + item.projectName + "index.html"
+            const itemURL = this.$store.state.projectURL + item.projectName + "/index.html" + `?${params}`
             // console.log(itemURL);
             window.open(itemURL)
         },

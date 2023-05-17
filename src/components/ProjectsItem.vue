@@ -1,12 +1,13 @@
 <template>
     <el-row :gutter="20">
-        <el-col :span="6" v-for="(item, index,) in projects" :key="index">
+        <!-- <el-col :span="6"> -->
+        <el-col :span="6" v-for="(item, index) in projects" :key="index">
             <div class="grid-content bg-purple">
-                <div class="wrap" @click="goUrl(item, index)">
+                <div class="wrap">
                     <p>index{{ item.index }}</p>
-                    <h4>{{ item.projectName }}</h4>
-                    <p>{{ item.appType }}</p>
+                    <h4>{{ item.name }}</h4>
                     <p>{{ item.discription }}</p>
+                    <p>{{ item.type }}</p>
                 </div>
             </div>
         </el-col>
@@ -15,6 +16,7 @@
 
 <script>
 import { mapState } from "vuex";
+import { getData } from "@/tool/getData";
 export default {
     name: "ProjectsItem",
     data() {
@@ -32,14 +34,16 @@ export default {
         goUrl(item, index) {
             // console.log(this.$store.state.projectURL);
             // console.log(item.projectName);
-            const itemURL = this.$store.state.projectURL + item.projectName + "index.html"
+            const itemURL =
+                this.$store.state.projectURL + item.projectName + "index.html";
             // console.log(itemURL);
-            window.open(itemURL)
+            window.open(itemURL);
         },
     },
-    mounted() {
-        // console.log('dss',this.projectInfo)
-        this.projects = this.projectInfo;
+    created() {
+        this.projects = getData()
+        console.log(this.projects);
+        // console.log(getData());
     },
 };
 </script>

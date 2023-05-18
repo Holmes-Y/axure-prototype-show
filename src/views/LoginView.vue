@@ -20,36 +20,11 @@
                     ></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit()"
+                    <el-button style="width: 100%;" type="primary" @click="onSubmit()"
                         >立即登录</el-button
                     >
                 </el-form-item>
             </el-form>
-            <!-- <div>
-                用户名：
-                <el-input
-                    placeholder="请输入您的姓名"
-                    v-model="username"
-                    prefix-icon="el-icon-user"
-                    maxlength="10"
-                    @change="checkInput()"
-                >
-                </el-input>
-            </div>
-            <div>
-                密码：
-                <el-input
-                    placeholder="请输入密码"
-                    v-model="password"
-                    prefix-icon="el-icon-user"
-                    maxlength="12"
-                    show-password
-                >
-                </el-input>
-            </div> -->
-            <!-- <el-button class="btn-login" type="primary" @click="checkInfo"
-                >确定
-            </el-button> -->
         </div>
     </div>
 </template>
@@ -123,12 +98,11 @@ export default {
     justify-content: center;
     padding: 0 0 80px 0;
     .wrap {
-        padding: 40px;
+        padding: 40px 40px 0 40px;
         margin: 0 auto;
         background-color: white;
         border-radius: 4px;
         width: 480px;
-        height: 480px;
         box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
         span {
             display: inline-block;

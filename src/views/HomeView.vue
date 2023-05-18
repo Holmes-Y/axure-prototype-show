@@ -1,63 +1,65 @@
 <template>
-    <el-container>
-        <el-aside width="200px">Aside</el-aside>
-        <el-container>
-            <el-header>Header</el-header>
-            <el-main>
-                <AddProjectDialog></AddProjectDialog>
+    <div class="bg">
+        <div class="container">
+            <div class="left">
+
+            </div>
+            <div class="wrap">
+                <div class="nav">
+                    <ProjNav></ProjNav>
+                </div>
+                <!-- <AddProjectDialog></AddProjectDialog> -->
                 <ProjectsItem></ProjectsItem>
-            </el-main>
-        </el-container>
-    </el-container>
+            </div>
+        </div>
+    </div>
 </template>
 <script>
-import AddProjectDialog from '@/components/AddProjectDialog.vue';
+// import AddProjectDialog from '@/components/AddProjectDialog.vue';
 import ProjectsItem from "../components/ProjectsItem.vue";
+import ProjNav from "@/components/ProjNav.vue";
 export default {
     name: "HomeView",
     components: {
-        AddProjectDialog,
+        // AddProjectDialog,
         ProjectsItem,
+        ProjNav,
     },
 };
 </script>
 <style lang="less" scoped>
-.el-header,
-.el-footer {
-    background-color: #b3c0d1;
-    color: #333;
-    text-align: center;
-    line-height: 60px;
-}
-
-.el-aside {
+.bg {
+    width: 100vw;
     height: 100vh;
-    background-color: #d3dce6;
-    color: #333;
-    text-align: center;
-}
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-.el-main {
-    background-color: #e9eef3;
-    color: #333;
-    text-align: left;
-    // line-height: 160px;
-}
+    .container {
+        position: relative;
+        width: 60vw;
+        height: 70vh;
+        background-color: rgba(255, 255, 255, .9);
+        border-radius: 8px;
 
-.btn-wrap {
-    margin-bottom: 16px;
-}
-body > .el-container {
-    margin-bottom: 40px;
-}
+        .left {
+            position: absolute;
+            width: 54px;
+            height: 100%;
+            border-radius: 8px 0 0 8px;
+            background-color: #22253f;
+        }
 
-.el-container:nth-child(5) .el-aside,
-.el-container:nth-child(6) .el-aside {
-    line-height: 260px;
-}
-
-.el-container:nth-child(7) .el-aside {
-    line-height: 320px;
+        .wrap {
+            position: absolute;
+            width: calc(100% - 54px);
+            height: 100%;
+            left: 54px;
+            position: absolute;
+            padding: 24px;
+        }
+    }
 }
 </style>
 

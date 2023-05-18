@@ -8,16 +8,20 @@ const store = new Vuex.Store({
         userInfo: [
             { id: 1, name: "杨博文", password: "yangbowen" },
         ],
-        projectInfo: [
-            { projectName: "汉江国投看地云-小程序", appType: "小程序", discription: "看地小程序" },
-        ],
+        projectInfo: [],
     },
     mutations: {
-        // 添加一个项目
-        addProjectInfo(state, info) {
-            state.projectInfo.push(info)
+        // 同步 json 数据
+        updateProjInfo(state, info) {
+            state.projectInfo = info
         }
     },
+    actions: {
+        // 触发更新
+        updateProjInfo({commit}){
+            commit('updateProjInfo')
+        }
+    }
 })
 
 export default store

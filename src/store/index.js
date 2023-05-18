@@ -11,7 +11,6 @@ const store = new Vuex.Store({
         projectInfo: [
             { projectName: "汉江国投看地云-小程序", appType: "小程序", discription: "看地小程序" },
         ],
-        projectURL: "http://223.75.204.112:808/resources/"
     },
     mutations: {
         // 添加一个项目

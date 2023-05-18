@@ -6,7 +6,7 @@
                 <div class="wrap">
                     <p>index{{ item.index }}</p>
                     <h4>{{ item.name }}</h4>
-                    <p>{{ item.discription }}</p>
+                    <p>{{ item.description }}</p>
                     <p>{{ item.type }}</p>
                 </div>
             </div>
@@ -16,7 +16,7 @@
 
 <script>
 import { mapState } from "vuex";
-import { getData } from "@/tool/getData";
+import axios from "axios"
 export default {
     name: "ProjectsItem",
     data() {
@@ -35,15 +35,24 @@ export default {
             const params = new Date().getTime().toString().slice(9, 12)
             // console.log(this.$store.state.projectURL);
             // console.log(item.projectName);
-            const itemURL = this.$store.state.projectURL + item.projectName + "index.html"
+            const itemURL = this.$store.state.projectURL + item.projectName + "index.html" + "?" + params
             // console.log(itemURL);
             window.open(itemURL);
         },
     },
     created() {
-        this.projects = getData()
-        console.log(this.projects);
-        // console.log(getData());
+        // 开发环境
+        fetch('/project.json')
+            .then(response => response.json())
+            .then(data => this.projects = data)
+        console.log('dddd', this.projects);
+
+        // 生产环境
+        // fetch('http://223.75.204.112:808/resources/directory/project.json')
+        //     .then(response => response.json())
+        //     .then(data => this.projects = data)
+        // console.log('dddd', this.projects);
+        
     },
 };
 </script>

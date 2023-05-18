@@ -106,7 +106,7 @@ export default {
         ...mapState(["userInfo"]),
     },
     created() {
-        console.log(this.userInfo);
+        // console.log(this.userInfo);
     },
     components: {},
 };

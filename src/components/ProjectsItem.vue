@@ -31,11 +31,11 @@ export default {
         ...mapState(["projectInfo"]),
     },
     methods: {
-        goUrl(item, index) {
+        goUrl(item) {
+            const params = new Date().getTime().toString().slice(9, 12)
             // console.log(this.$store.state.projectURL);
             // console.log(item.projectName);
-            const itemURL =
-                this.$store.state.projectURL + item.projectName + "index.html";
+            const itemURL = this.$store.state.projectURL + item.projectName + "index.html"
             // console.log(itemURL);
             window.open(itemURL);
         },
